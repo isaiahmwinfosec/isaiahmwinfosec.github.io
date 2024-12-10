@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isaiah Williams - Personal Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(to bottom, #f5f5f5, #ffffff);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .about-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            color: #00bcd4;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            text-decoration: none;
+            color: #00bcd4;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #00bcd4;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 188, 212, 0.1);
+        }
+
+        .social-link:hover {
+            background-color: #00bcd4;
+            color: white;
+            box-shadow: 0 6px 8px rgba(0, 188, 212, 0.2);
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .chevron-down {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .chevron-down:hover {
+            transform: translateX(-50%) translateY(5px);
+        }
+
+        .chevron-down svg {
+            width: 40px;
+            height: 40px;
+            fill: #00bcd4;
+        }
+
+        /* Full screen section styles */
+        .technologies, .experience, .projects {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            background-color: #f9f9f9;
+        }
+
+        .tech-grid, .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .tech-item, .project-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+
+        .tech-item:hover, .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .experience-list {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .experience-item, .project-card {
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .download-cv {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #00bcd4;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .section-title {
+            margin-bottom: 2rem;
+            color: #00bcd4;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-button {
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #008ba3;
+        }
+        .popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.popup-overlay.active {
+  display: flex;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-title {
+  margin-bottom: 1rem;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Isaiah <span class="highlight">Williams</span></h1>
+        <p class="subtitle">Securing systems and services | CySA+</p>
+        
+        <div class="social-links">
+            <a href="https://github.com/isaiahmwinfosec" class="social-link" target="_blank">
+                <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                github
+            </a>
+            <a href="https://www.linkedin.com/in/isaiahmwinfosec" class="social-link" target="_blank">
+                <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                linkedin
+            </a>
+            <a href="mailto:isaiahmwinfosec@proton.me" class="social-link" target="_blank">
+                <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M22 4H2v16h20V4zm-2 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                email
+            </a>
+        </div>
+        <div class="chevron-down" onclick="scrollToNextSection()">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+          </svg>
+        </div>
+    </div>
+
+    <a href="/data/IsaiahWilliamsResume2024.pdf" class="download-cv">Download CV</a>
+
+    <section class="technologies">
+        <h1 class="section-title">Technologies</h1>
+        <div class="tech-grid">
+            <div class="tech-item" onclick="openPopup('burp')">Burp Suite</div>
+            <div class="tech-item" onclick="openPopup('webapphacking')">Web App Testing</div>
+            <div class="tech-item" onclick="openPopup('linux')">Linux</div>
+            <div class="tech-item" onclick="openPopup('python')">Python</div>
+            <div class="tech-item" onclick="openPopup('siem')">SIEM</div>
+            <div class="tech-item" onclick="openPopup('bash')">Bash</div>
+            <div class="tech-item" onclick="openPopup('virtualization')">Virtualization</div>
+            <div class="tech-item" onclick="openPopup('aiml')">AI/ML</div>
+            <div class="tech-item" onclick="openPopup('enterprise')">Enterprise</div>
+            <div class="tech-item" onclick="openPopup('networking')">Networking</div>
+            <div class="tech-item" onclick="openPopup('remaldev')">RE/Maldev</div>
+            <div class="tech-item" onclick="openPopup('c2')">C2</div>
+            <div class="tech-item" onclick="openPopup('osint')">OSINT</div>
+            <div class="tech-item" onclick="openPopup('golang')">Golang</div>
+            <div class="tech-item" onclick="openPopup('svelte')">Svelte</div>
+            <div class="tech-item" onclick="openPopup('sqlite')">SQLite</div>
+        </div>
+        <br>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('technologies')">Technologies</button>
+            <button class="nav-button" onclick="scrollToSection('experience')">Experience</button>
+            <button class="nav-button" onclick="scrollToSection('projects')">Projects</button>
+        </div>
+    </section>
+
+    <section class="experience">
+        <h1 class="section-title">Experience</h1>
+        <div class="experience-list">
+            <div class="experience-item">
+                <h3>Penetration Testing</h3>
+                <p>1 year - Web Application and API</p>
+            </div>
+            <div class="experience-item">
+                <h3>Project Management</h3>
+                <p>1 year - Migration and Customer Relations</p>
+            </div>
+            <div class="experience-item">
+                <h3>Help Desk</h3>
+                <p>2 years - Enterprise systems troubleshooting and Identity & Access Management</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('technologies')">Technologies</button>
+            <button class="nav-button" onclick="scrollToSection('experience')">Experience</button>
+            <button class="nav-button" onclick="scrollToSection('projects')">Projects</button>
+        </div>
+    </section>
+
+    <section class="projects">
+        <h1 class="section-title">Projects</h1>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Bug Bounty</h3>
+                <ul>
+                    <li>10+ vulnerabilities reported</li>
+                    <li>90% accuracy</li>
+                    <li>Multiple Critical+ vulnerabilities found</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <h3>Recon Automation</h3>
+                <p>Automating bug bounty reconnaissance using bash and python scripts, you can find the latest scripts here</p>
+            </div>
+
+            <div class="project-card">
+                <h3>HomeLab</h3>
+                <p>Set up and configured multiple home labs both virtual and physical for anything from AI Inferencing to enterprise network emulation.</p>
+            </div>
+            <div class="project-card">
+                <h3>Dataset Validation Website</h3>
+                <p>Currently building a website for the creating and validation of datasets for using in training ML and AI models to better understand the problems faced by developers implementing security controls</p>
+            </div>
+            <div class="project-card">
+                <h3>SIEM</h3>
+                <p>Deploying and configuring SIEM to monitor endpoints, currently using SecurityOnion and in the process of switching to the LME platform offered by CISA</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="scrollToSection('technologies')">Technologies</button>
+            <button class="nav-button" onclick="scrollToSection('experience')">Experience</button>
+            <button class="nav-button" onclick="scrollToSection('projects')">Projects</button>
+        </div>
+    </section>
+
+    <div class="popup-overlay" id="popupOverlay" onclick="closePopup()">
+        <div class="popup-content" onclick="event.stopPropagation()">
+          <button class="close-btn" onclick="closePopup()">&times;</button>
+          <h3 class="popup-title" id="popupTitle"></h3>
+          <div class="popup-description" id="popupDescription"></div>
+        </div>
+    </div>
+
+
+    <script>
+        function scrollToNextSection() {
+            const sections = document.querySelectorAll('.technologies, .experience, .projects');
+            const currentSection = document.querySelector('.container');
+            
+            // Scroll to the first section
+            if (sections.length > 0) {
+                sections[0].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Optional: Add navigation between sections
+        function navigateSections(direction) {
+            const sections = Array.from(document.querySelectorAll('.technologies, .experience, .projects'));
+            const currentSectionIndex = sections.findIndex(section => 
+                window.pageYOffset >= section.offsetTop && 
+                window.pageYOffset < section.offsetTop + section.offsetHeight
+            );
+
+            let targetIndex;
+            if (direction === 'next') {
+                targetIndex = (currentSectionIndex + 1) % sections.length;
+            } else {
+                targetIndex = (currentSectionIndex - 1 + sections.length) % sections.length;
+            }
+
+            sections[targetIndex].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add hover effect animation
+        document.querySelectorAll('.social-link').forEach(link => {
+            link.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            link.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        function scrollToSection(sectionId) {
+            const section = document.querySelector('.' + sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        const techContent = {
+      burp: {
+        title: 'Burp Suite',
+        description: 'Web application security testing tool used for penetration testing of web applications. Proficient in using both the Community and Professional editions for vulnerability assessment and web security testing.'
+      },
+      linux: {
+        title: 'Linux',
+        description: 'Advanced knowledge of Linux systems administration, security hardening, and command-line operations. Experience with various distributions including Kali Linux, Ubuntu,Debian, and Red Hat.'
+      },
+      python: {
+        title: 'Python',
+        description: 'Extensive experience in Python programming for security automation, script development, and tool creation.'
+      },
+      siem: {
+        title: 'SIEM',
+        description: 'Experience with Security Information and Event Management systems(primarily SecurityOnion and the ELK Stack), focused on log ingestion and SIEM architecture.'
+      },
+      bash: {
+        title: 'Bash',
+        description: 'Shell scripting capabilities for automation, system administration, and security tasks. Experience in creating scripts for security testing and system maintenance.'
+      },
+      virtualization: {
+        title: 'Virtualization',
+        description: 'Proficient in various virtualization technologies including VirtualBox and Docker. Experience in setting up and managing virtual environments for security testing.'
+      },
+      aiml: {
+        title: 'AI/ML',
+        description: 'Knowledge of artificial intelligence and machine learning applications in cybersecurity, currently researching Machine Learning applications for threat detection and anomaly identification. Very Proficient in use of AI tools'
+      },
+      enterprise: {
+        title: 'Enterprise',
+        description: 'Experience in enterprise-level security implementation, policy development, and risk management. Familiar with compliance requirements and security frameworks.'
+      },
+      networking: {
+        title: 'Networking',
+        description: 'Strong understanding of network protocols, architecture, and security. Experience with network security tools, firewalls, and intrusion detection systems.'
+      },
+      remaldev: {
+        title: 'RE/Maldev',
+        description: 'Skills in reverse engineering and malware development for defensive purposes. Experience in analyzing malicious code and understanding attack methodologies.'
+      },
+      c2: {
+        title: 'C2',
+        description: 'Knowledge of Command and Control infrastructure, both in defensive analysis and understanding of attack methodologies. Experience using Sliver C2 as well as Metasploit'
+      },
+      osint: {
+        title: 'OSINT',
+        description: 'Proficient in Open Source Intelligence gathering techniques and tools. Experience in conducting thorough intelligence gathering for security assessments.'
+      },
+      golang: {
+        title: 'Golang',
+        description: 'Experience using Golang to make faster versions of python scripts as well as API backends for projects'
+      },
+      svelte: {
+        title: 'Svelte',
+        description: 'Used Svelte as frontend for projects, exprience modifying existing svelte code as well as creating projects from scratch with the assistance of AI Tools'
+      },
+      vulnscanning: {
+        title: 'Vulnerability Scanning',
+        description: 'Proficient leveraging tools such as Nessus, Nmap, and Nuclei for vulnerability scanning'
+      },
+      webapphacking: {
+        title: 'Web Application Security Testing',
+        description: 'Proficient in finding vulnerabilities in web apps including, XSS, SQLi, SSRF, as well as other common web vulnerabilies. Also profiecent testing API endpoints for misconfiguration and scanning for vulnerabilities using tools such as Nessus, Nmap, and Nuclei'
+      },
+      sqlite: {
+        title: 'Web Application Security Testing',
+        description: 'Experience testing SQLite implementations as well as using SQLite for backend database storage'
+      }
+    };
+
+    function openPopup(techId) {
+      const content = techContent[techId];
+      document.getElementById('popupTitle').textContent = content.title;
+      document.getElementById('popupDescription').textContent = content.description;
+      document.getElementById('popupOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePopup() {
+      document.getElementById('popupOverlay').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    </script>
+</body>
+</html>
